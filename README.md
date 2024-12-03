@@ -28,6 +28,12 @@ Correr la app
 
 App: http://127.0.0.1:8000/
 
+
+Usuario seed
+| Email | Pwd     |
+| :-------- | :------- | 
+| `admin@example.com` | `contrasenaSegura` |
+
 ## Architecture
 
 ### Api Rest
