@@ -31,6 +31,24 @@ class TodoRepository
         return $todo;
     }
 
+    public function getTodosQuery(string $title = null,bool $completed = null)
+    {
+        
+        $query = Todo::query();
+        
+        if ($title) {
+            $query->where('title', 'LIKE', "%" . $title . "%");
+        }
+
+        // if completed exits apply this query
+        if (!is_null($completed)) {
+            $query->where('completed', $completed);
+        }
+
+        return $query->get();;
+
+    }
+
     public function update(int $id, TodoDTO $dto)
     {
         $todo = Todo::findOrFail($id);

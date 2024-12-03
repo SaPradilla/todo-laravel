@@ -8,7 +8,7 @@ use App\Http\Requests\TodoStoreRequest;
 use App\Http\Requests\TodoUpdateRequest;
 use App\Jobs\SendRemider;
 use App\Services\TodoService;
-
+use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
@@ -25,6 +25,15 @@ class TodoController extends Controller
     public function index($id)
     {
         return response()->json($this->todoService->getAllTodos($id));
+    }
+
+    public function getTodosQuery(Request $request)
+    {
+        // get params
+        $title = $request->query('title');
+        $completed = $request->query('completed');
+
+        return response()->json($this->todoService->getTodosQuery($title,$completed));
     }
 
     /**

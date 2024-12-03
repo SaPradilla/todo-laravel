@@ -15,10 +15,42 @@ class TodoSeeder extends Seeder
      */
     public function run(): void
     {
-        $todo =  new Todo();
-        $todo->title = 'Comprar mantequilla';
-        $todo->description = 'Ir al d1 a comprar mantequilla';
-        $todo->user_id =  User::find(1)->id;
-        $todo->save();
+        $user = User::find(1);
+
+        $todos = [
+            [
+                'title' => 'Comprar mantequilla',
+                'description' => 'Ir al d1 a comprar mantequilla',
+                'user_id' => $user->id,
+                'completed'=>false,
+            ],
+            [
+                'title' => 'Migracion de todo',
+                'description' => 'crear la table de todo',
+                'user_id' => $user->id,
+                'completed'=>false,
+            ],
+            [
+                'title' => 'Seeder todo',
+                'description' => 'crear seeder para llenar los todo',
+                'user_id' => $user->id,
+                'completed'=>true,
+            ],
+            [
+                'title' => 'Gym',
+                'description' => 'Ir al gimnasio por la tarde',
+                'user_id' => $user->id,
+                'completed'=>true,
+            ],
+        ];
+
+        foreach ($todos as $todoData) {
+            $todo = new Todo();
+            $todo->title = $todoData['title'];
+            $todo->description = $todoData['description'];
+            $todo->completed = $todoData['completed'];
+            $todo->user_id = $todoData['user_id'];
+            $todo->save();
+        }
     }
 }

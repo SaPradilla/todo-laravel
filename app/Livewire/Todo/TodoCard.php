@@ -7,6 +7,7 @@ use Livewire\Component;
 class TodoCard extends Component
 {
     public $todo;
+    public $confirmDeleteTodo = false;
 
 
     public function deleteTodo()
@@ -26,8 +27,9 @@ class TodoCard extends Component
     public function changeStatus()
     {
         $this->todo['completed'] = !$this->todo['completed'];
-        
+        // send to todolist component
         $this->dispatch('changeStatus',$this->todo['id']);
     }
+    
     
 }

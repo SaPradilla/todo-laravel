@@ -12,7 +12,7 @@ class ModalForm extends Component
     public $description = '';
     public $completed = false;
 
-
+    
     protected $rules = [
         'title' => 'required|min:4|max:40',
         'description' => 'required|min:4|max:255',
@@ -32,6 +32,7 @@ class ModalForm extends Component
     }
     public function submit()
     {
+        // validate data send, the $rules is the validator
         $this->validate();
 
         $user_id = auth()->user()->id;

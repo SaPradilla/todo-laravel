@@ -10,7 +10,9 @@ class TodoList extends Component
 {
     
     public $todos = [];
-    
+    public $query = '';
+    public $filter_status = null;
+
     public function render()
     {
         return view('livewire.todo.todo-list');
@@ -23,10 +25,27 @@ class TodoList extends Component
 
     public function loadTodos()
     {
-        $apiUrl = config('services.api.url');
         $user_id = auth()->user()->id;
-        $resp = Http::get("{$apiUrl}/todo/{$user_id}");
-        if($resp->successful()){
+        $apiUrl = config('services.api.url');
+        $url = "{$apiUrl}/todo/";
+        $params = [];
+
+        // one of the two may be one
+        if(!is_null($this->query) || !is_null($this->filter_status)){
+            // fill the params array
+            $params = [
+                'title' => $this->query,
+                'completed' => $this->filter_status,
+            ];
+        }else {
+            // If there are no filters, the user_id is added to the URL c:
+            $url .= $user_id;
+        }
+        
+        // get the todo's
+        $resp = Http::get($url, $params);
+
+        if ($resp->successful()) {
             $this->todos = $resp->json();
         }
     }

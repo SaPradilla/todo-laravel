@@ -21,7 +21,11 @@ class TodoService
 
     public function getByIdTodo(int $id)
     {
-        return $this->todoRepository->getById($id);;
+        return $this->todoRepository->getById($id);
+    }
+    public function getTodosQuery(string $title = null,bool $completed = null)
+    {
+        return $this->todoRepository->getTodosQuery($title,$completed);
     }
 
     public function createTodo(TodoDTO $dto)
